@@ -72,12 +72,12 @@ func (fileHandler *FileHandler) WriteConfigFile(config *config.ApolloConfig, con
 	if err != nil {
 		return err
 	}
-	return jsonFileConfig.Write(config, fileHandler.GetConfigFile(configPath, config.AppID, config.NamespaceName))
+	return jsonFileConfig.Write(config, fileHandler.GetConfigFile(configPath, config.AppID, config.Cluster, config.NamespaceName))
 }
 
 // GetConfigFile get real config file
-func (fileHandler *FileHandler) GetConfigFile(configDir string, appID string, namespace string) string {
-	key := fmt.Sprintf("%s-%s", appID, namespace)
+func (fileHandler *FileHandler) GetConfigFile(configDir string, appID string, cluster string, namespace string) string {
+	key := fmt.Sprintf("%s-%s-%s", appID, cluster, namespace)
 	configFileMapLock.Lock()
 	defer configFileMapLock.Unlock()
 	fullPath := configFileMap[key]
@@ -93,8 +93,8 @@ func (fileHandler *FileHandler) GetConfigFile(configDir string, appID string, na
 }
 
 // LoadConfigFile load config from file
-func (fileHandler *FileHandler) LoadConfigFile(configDir string, appID string, namespace string) (*config.ApolloConfig, error) {
-	configFilePath := fileHandler.GetConfigFile(configDir, appID, namespace)
+func (fileHandler *FileHandler) LoadConfigFile(configDir string, appID string, cluster string, namespace string) (*config.ApolloConfig, error) {
+	configFilePath := fileHandler.GetConfigFile(configDir, appID, cluster, namespace)
 	log.Infof("load config file from: %s", configFilePath)
 	c, e := jsonFileConfig.Load(configFilePath, func(b []byte) (interface{}, error) {
 		config := &config.ApolloConfig{}

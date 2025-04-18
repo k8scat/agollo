@@ -67,7 +67,7 @@ func (fileHandler *rawFileHandler) WriteConfigFile(config *config.ApolloConfig, 
 	if err != nil {
 		log.Errorf("writeWithRaw fail! error:%v", err)
 	}
-	return jsonFileConfig.Write(config, fileHandler.GetConfigFile(configPath, config.AppID, config.NamespaceName))
+	return jsonFileConfig.Write(config, fileHandler.GetConfigFile(configPath, config.AppID, config.Cluster, config.NamespaceName))
 }
 
 // GetRawFileHandler 获取 rawFileHandler 实例

@@ -144,7 +144,7 @@ func toApolloConfig(resBody []byte) ([]*config.Notification, error) {
 func loadBackupConfig(namespace string, appConfig config.AppConfig) []*config.ApolloConfig {
 	apolloConfigs := make([]*config.ApolloConfig, 0)
 	config.SplitNamespaces(namespace, func(namespace string) {
-		c, err := extension.GetFileHandler().LoadConfigFile(appConfig.BackupConfigPath, appConfig.AppID, namespace)
+		c, err := extension.GetFileHandler().LoadConfigFile(appConfig.BackupConfigPath, appConfig.AppID, appConfig.Cluster, namespace)
 		if err != nil {
 			log.Errorf("LoadConfigFile error, error: %v", err)
 			return

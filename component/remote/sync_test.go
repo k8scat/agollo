@@ -117,7 +117,7 @@ func TestAutoSyncConfigServicesNoBackupFile(t *testing.T) {
 	newAppConfig := initNotifications()
 	newAppConfig.IP = server1.URL
 	appConfig.IsBackupConfig = false
-	configFilePath := extension.GetFileHandler().GetConfigFile(newAppConfig.GetBackupConfigPath(), newAppConfig.AppID, "application")
+	configFilePath := extension.GetFileHandler().GetConfigFile(newAppConfig.GetBackupConfigPath(), newAppConfig.AppID, newAppConfig.Cluster, "application")
 	os.Remove(configFilePath)
 
 	time.Sleep(1 * time.Second)
@@ -141,7 +141,7 @@ func TestAutoSyncConfigServicesNoBackupFile(t *testing.T) {
 
 func checkNilBackupFile(t *testing.T) {
 	appConfig := env.InitFileConfig()
-	newConfig, e := extension.GetFileHandler().LoadConfigFile(appConfig.GetBackupConfigPath(), appConfig.AppID, "application")
+	newConfig, e := extension.GetFileHandler().LoadConfigFile(appConfig.GetBackupConfigPath(), appConfig.AppID, appConfig.Cluster, "application")
 	Assert(t, e, NotNilVal())
 	Assert(t, newConfig, NilVal())
 }

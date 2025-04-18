@@ -21,6 +21,6 @@ import (
 // FileHandler 备份文件读写
 type FileHandler interface {
 	WriteConfigFile(config *config.ApolloConfig, configPath string) error
-	GetConfigFile(configDir string, appID string, namespace string) string
-	LoadConfigFile(configDir string, appID string, namespace string) (*config.ApolloConfig, error)
+	GetConfigFile(configDir string, appID string, cluster string, namespace string) string
+	LoadConfigFile(configDir string, appID string, cluster string, namespace string) (*config.ApolloConfig, error)
 }
